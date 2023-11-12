@@ -44,13 +44,12 @@
             color: #fff; /* White text color */
             text-align: center;
             padding: 1em;
-            position: absolute;
+            position: fixed;
             bottom: 0;
             width: 100%;
         }
     </style>
     <!-- Plotly CDN for JavaScript libraries -->
-    <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 <body>
@@ -75,17 +74,7 @@
 
     <script>
         // Load deaths data from the CSV file
-        d3.csv('data.csv', function(data) {
-            // Load tooltip info from the CSV file
-            // d3.csv('historical.csv', function(hoverinfo){
-
-            //     var day = [], dead = [], action = [];
-            //     for (var i = 0; i < hoverinfo.length; i++) {
-            //         row = rows[i];
-            //         day.push(row["Date"]);
-            //         dead.push(row["Dead"]);
-            //         action.push(row["Action"]);
-            //     }
+        Plotly.d3.csv('data.csv', function(data) {
 
         // Extract data for the chart
         var trace1 = {
@@ -95,13 +84,6 @@
             type: 'scatter',
             name: 'Palestinian Deaths',
             line: { color: 'red' }  // Set line color for Series 1
-            // hovertemplate:
-            // "<b>On This Day</b><br><br>" +
-            // "%Date: %{day}<br>" +
-            // "Total Dead: %{x:,.0f}<br>" +
-            // "%Dead Kids: %{dead:.0f}<br>" +
-            // "%{action}" +
-            // "<extra></extra>"
         };
 
         var trace2 = {
@@ -128,7 +110,8 @@
 
     <p>This chart was created by recording the daily death toll from <a href="https://www.aljazeera.com/news/longform/2023/10/9/israel-hamas-war-in-maps-and-charts-live-tracker">Al Jazeera</a> using the Wayback Machine to scrub the website between October 9 and present day.</p>
     <p>Notes: The Palestinian death count is widely thought to be underestimated due to to bodies trapped under the rubble as well as underreporting of deaths due to disease, thirst and/or starvation.</p>
-    <p>Total Israeli death count includes military and police. As of November 11, <a href="https://www.npr.org/2023/11/11/1212458974/israel-revises-death-toll-hamas-attacks-oct-7">Israeli sources</a> have confirmed the total deaths to be just under 1,200 (1,152 according to Haaretz), compared with the initial widely circulated number of 1,400. A complete list is available from <a href="https://www.haaretz.com/israel-news/2023-10-19/ty-article-magazine/israels-dead-the-names-of-those-killed-in-hamas-massacres-and-the-israel-hamas-war/0000018b-325c-d450-a3af-7b5cf0210000">Haaretz</a>.</p>
+    <p>Total Israeli death count includes military and police. As of November 11, <a href="https://www.npr.org/2023/11/11/1212458974/israel-revises-death-toll-hamas-attacks-oct-7">Israeli sources</a> have confirmed the total deaths to be just under 1,200 (1,152 according to Haaretz), compared with the initial widely circulated number of 1,400.</p>
+    <p>A complete list is available from <a href="https://www.haaretz.com/israel-news/2023-10-19/ty-article-magazine/israels-dead-the-names-of-those-killed-in-hamas-massacres-and-the-israel-hamas-war/0000018b-325c-d450-a3af-7b5cf0210000">Haaretz</a>.</p>
     <p>Deaths in the West Bank, also reported here, are due to state-sponsored settler violence and IDF attacks on West Bank protesters.</p>
     <p>For a complete list of all sources of significant events, please visit the <a href="https://bazzzzil.github.io/sources.html">Sources</a> tab.</p>
     </main>
