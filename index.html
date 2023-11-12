@@ -19,14 +19,21 @@
             color: #fff; /* White text color */
             text-align: center;
             padding: 1em;
-            width: 100%;
+            margin-right: auto;    
+            margin-left: auto;    
+            max-width: 100%;    
+            min-width: 500px;
+            left: 0;
         }
 
         nav {
             background-color: #0a356b; /* Darker blue navigation bar background color */
             color: #fff; /* White text color */
             padding: 1em;
-            width: 100%;
+            margin-right: auto;    
+            margin-left: auto;    
+            max-width: 100%;    
+            min-width: 500px;
         }
 
         nav a {
@@ -34,14 +41,20 @@
             text-decoration: none;
             padding: 1em;
             margin: 0 1em;
+            width: 100%
         }
 
-        nav:hover {
-            background-color: #0a366baa;
+        nav a:hover {
+            color: #6991c2aa;
         }
 
         main {
             padding: 2em;
+            margin-right: auto;    
+            margin-left: auto;    
+            max-width: 100%;    
+            min-width: 470px;
+            overflow: auto;
         }
 
         footer {
@@ -51,6 +64,7 @@
             padding: 1em;
             position: fixed;
             bottom: 0;
+            left: 0;
             width: 100%;
         }
     </style>
@@ -82,14 +96,9 @@
         Plotly.d3.csv('data.csv', function(data) {
             // Load tooltip info from the CSV file
             Plotly.d3.csv('historical.csv', function(hoverinfo){
-
-                var day = [], dead = [], action = [];
-                for (var i = 0; i < hoverinfo.length; i++) {
-                    row = rows[i];
-                    day.push(row["Date"]);
-                    dead.push(row["Dead"]);
-                    action.push(row["Action"]);
-                }
+                // var dk = [], act = [];
+                // dk = hoverinfo.map(row => row.Dead);
+                // act = hoverinfo.map(row => row.Action);
 
                 // Extract data for the chart
                 var trace1 = {
@@ -98,14 +107,14 @@
                     mode: 'lines+markers',
                     type: 'scatter',
                     name: 'Palestinian Deaths',
-                    line: { color: 'red' }  // Set line color for Series 1
-                    // hovertemplate:
-                    // "<b>On This Day</b><br><br>" +
-                    // "%Date: %{day}<br>" +
-                    // "Total Dead: %{x:,.0f}<br>" +
-                    // "%Dead Kids: %{dead:.0f}<br>" +
-                    // "%{action}" +
-                    // "<extra></extra>"
+                    line: { color: 'red' },  // Set line color for Series 1
+                    hovertemplate:
+                    "<b>On This Day</b><br><br>" +
+                    "%Date: %{x}<br>" +
+                    "Total Dead: %{y:,.0f}<br>" +
+                    // "%Dead Kids: %{dk:.0f}<br>" +
+                    // "%{act}" +
+                    "<extra></extra>"
                 };
 
                 var trace2 = {

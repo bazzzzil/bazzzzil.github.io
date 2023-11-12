@@ -19,14 +19,21 @@
             color: #fff; /* White text color */
             text-align: center;
             padding: 1em;
-            width: 100%;
+            margin-right: auto;    
+            margin-left: auto;    
+            max-width: 100%;    
+            min-width: 500px;
+            left: 0;
         }
 
         nav {
             background-color: #0a356b; /* Darker blue navigation bar background color */
             color: #fff; /* White text color */
             padding: 1em;
-            width: 100%;
+            margin-right: auto;    
+            margin-left: auto;    
+            max-width: 100%;    
+            min-width: 500px;
         }
 
         nav a {
@@ -36,12 +43,28 @@
             margin: 0 1em;
         }
 
-        nav:hover {
-            background-color: #0a366baa;
+        nav a:hover {
+            color: #6991c2aa;
         }
 
         main {
             padding: 2em;
+            margin-right: auto;    
+            margin-left: auto;    
+            max-width: 100%;    
+            min-width: 470px;
+            overflow: auto;
+        }
+
+        footer {
+            background-color: #0d47a1; /* Dark blue footer background color */
+            color: #fff; /* White text color */
+            text-align: center;
+            padding: 1em;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
         }
 
         table {
@@ -65,15 +88,6 @@
             background-color: #807d7d;
         }
 
-        footer {
-            background-color: #0d47a1; /* Dark blue footer background color */
-            color: #fff; /* White text color */
-            text-align: center;
-            padding: 1em;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
     </style>
     <!-- D3.js CDN -->
     <script src="https://d3js.org/d3.v5.min.js"></script>
