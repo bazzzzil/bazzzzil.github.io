@@ -72,7 +72,7 @@
     <div id="plotly-chart"></div>
 
     <script>
-            // Load data from the CSV file
+            // Load deaths data from the CSV file
             Plotly.d3.csv('data.csv', function(data) {
 
             // Extract data for the chart
@@ -81,7 +81,8 @@
                 y: data.map(row => row.Palestinian),
                 mode: 'lines',
                 type: 'scatter',
-                name: 'Palestinian Deaths'
+                name: 'Palestinian Deaths',
+                line: { color: 'red' }  // Set line color for Series 1
             };
 
             var trace2 = {
@@ -89,7 +90,8 @@
                 y: data.map(row => row.Israeli),
                 mode: 'lines',
                 type: 'scatter',
-                name: 'Israeli Deaths'
+                name: 'Israeli Deaths',
+                line: { color: 'blue' }  // Set line color for Series 2
             };
 
             // Layout settings for the chart
