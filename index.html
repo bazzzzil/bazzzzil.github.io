@@ -48,6 +48,8 @@
             width: 100%;
         }
     </style>
+    <!-- Plotly CDN for JavaScript libraries -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 <body>
 
@@ -65,6 +67,27 @@
     <main>
         <h2>Visualization of deaths in Palestine since October 7. </h2>
         <p>We want to know. What is a proportionate response?</p>
+            <!-- Container for the Plotly chart -->
+    <div id="plotly-chart"></div>
+
+    <script>
+        // Your Plotly chart data
+        var chartData = {
+            x: [1, 2, 3, 4, 5],
+            y: [10, 11, 12, 13, 14],
+            type: 'bar'
+        };
+
+        // Layout settings for the chart
+        var layout = {
+            title: 'Interactive Bar Chart',
+            xaxis: { title: 'X-axis' },
+            yaxis: { title: 'Y-axis' }
+        };
+
+        // Create the Plotly chart
+        Plotly.newPlot('plotly-chart', [chartData], layout);
+    </script>
     </main>
 
     <footer>
