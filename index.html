@@ -72,41 +72,45 @@
     <div id="plotly-chart"></div>
 
     <script>
-       // Sample data for the chart
-       var data = [
-            {
-                x: ['A', 'B', 'C', 'D', 'E'],
-                y: [10, 20, 15, 25, 18],
-                type: 'scatter',
-                mode: 'lines',
-                name: 'Series 1',
-                hoverinfo: 'y+name'  // Display y-value and trace name
-            },
-            {
-                x: ['A', 'B', 'C', 'D', 'E'],
-                y: [15, 25, 20, 30, 22],
-                type: 'scatter',
-                mode: 'lines',
-                name: 'Series 2',
-                hoverinfo: 'y+name'  // Display y-value and trace name
-            }
-        ];
+            // Load data from the CSV file
+            Plotly.d3.csv('data.csv', function(data) {
 
-        // Layout settings for the chart
-        var layout = {
-            title: 'Interactive Line Chart',
-            xaxis: { title: 'Category' },
-            yaxis: { title: 'Value' }
-        };
-        // Create the Plotly chart
-        Plotly.newPlot('plotly-chart', data, layout);
+            // Extract data for the chart
+            var trace1 = {
+                x: data.map(row => row.Date),
+                y: data.map(row => row.Palestinian),
+                mode: 'lines',
+                type: 'scatter',
+                name: 'Palestinian Deaths'
+            };
+
+            var trace2 = {
+                x: data.map(row => row.Date),
+                y: data.map(row => row.Israeli),
+                mode: 'lines',
+                type: 'scatter',
+                name: 'Israeli Deaths'
+            };
+
+            // Layout settings for the chart
+            var layout = {
+                title: 'Palestinian/Israeli Death Toll Post Oct. 7',
+                xaxis: { title: 'Date' },
+                yaxis: { title: 'Deaths (Cumulative)' }
+            };
+
+            // Create the Plotly chart
+            Plotly.newPlot('plotly-chart', [trace1, trace2], layout);
+        });
     </script>
+
     <p>Cumulative deaths day by day - need to find delta after. Methodology - last snapshot of https://www.aljazeera.com/news/longform/2023/10/9/israel-hamas-war-in-maps-and-charts-live-tracker on Wayback Machine
         Notes: Palestinian death is widely thought to be underestimated due to bodies trapped under rubble, underreporting of deaths due to disease, thirst and/or starvation, and deaths not counted near the beginning of the israeli onslaught. 
        Total Israeli deaths includes military & police. Israeli sources confirmed total deaths to be just under 1,200. https://www.npr.org/2023/11/11/1212458974/israel-revises-death-toll-hamas-attacks-oct-7
         Deaths in West Bank are due to state-sponsored settler violence and IDF attacks on West Bank protesters
         All reported numbers are minima and not absolute values
-        Some statistics were not available on Al-Jazeera prior to a certain date.</p>
+        Some statistics were not available on Al-Jazeera prior to a certain date.
+    </p>
     </main>
 
     <footer>
