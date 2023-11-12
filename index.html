@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🇵🇸 Free Palestine</title>
+    <title>Free Palestine</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🇵🇸</text></svg>">    
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -71,23 +72,42 @@
     <div id="plotly-chart"></div>
 
     <script>
-        // Your Plotly chart data
-        var chartData = {
-            x: [1, 2, 3, 4, 5],
-            y: [10, 11, 12, 13, 14],
-            type: 'bar'
-        };
+              // Load data from the CSV file
+        Plotly.d3.csv('data.csv', function(data) {
 
-        // Layout settings for the chart
-        var layout = {
-            title: 'Interactive Bar Chart',
-            xaxis: { title: 'X-axis' },
-            yaxis: { title: 'Y-axis' }
-        };
+            // Extract data for the chart
+            var trace1 = {
+                x: data.map(row => row.Date),
+                y: data.map(row => row.Palestinian),
+                mode: 'lines',
+                type: 'scatter',
+                name: 'Series 1'
+            };
 
-        // Create the Plotly chart
-        Plotly.newPlot('plotly-chart', [chartData], layout);
+            var trace2 = {
+                x: data.map(row => row.Date),
+                y: data.map(row => row.Israeli),
+                mode: 'lines',
+                type: 'scatter',
+                name: 'Series 2'
+            };
+
+            // Layout settings for the chart
+            var layout = {
+                title: 'Palestinian/Israeli Death Toll Post Oct. 7',
+                xaxis: { title: 'Date' },
+                yaxis: { title: 'Deaths (Cumulative)' }
+            };
+
+            // Create the Plotly chart
+            Plotly.newPlot('plotly-chart', [trace1, trace2], layout);
     </script>
+    <p>Cumulative deaths day by day - need to find delta after. Methodology - last snapshot of https://www.aljazeera.com/news/longform/2023/10/9/israel-hamas-war-in-maps-and-charts-live-tracker on Wayback Machine
+        Notes: Palestinian death is widely thought to be underestimated due to bodies trapped under rubble, underreporting of deaths due to disease, thirst and/or starvation, and deaths not counted near the beginning of the israeli onslaught. 
+        Israeli sources confirmed total deaths to be just under 1,200. https://www.npr.org/2023/11/11/1212458974/israel-revises-death-toll-hamas-attacks-oct-7
+        Deaths in West Bank are due to state-sponsored settler violence and IDF attacks on West Bank protesters
+        All reported numbers are minima and not absolute values
+        Some statistics were not available on Al-Jazeera prior to a certain date.</p>
     </main>
 
     <footer>
