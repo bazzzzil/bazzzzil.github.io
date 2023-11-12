@@ -94,26 +94,26 @@
     <script>
         // Load deaths data from the CSV file
         Plotly.d3.csv('data.csv', function(data) {
+
             // Load tooltip info from the CSV file
             Plotly.d3.csv('historical.csv', function(hoverinfo){
-                // var dk = [], act = [];
-                // dk = hoverinfo.map(row => row.Dead);
-                // act = hoverinfo.map(row => row.Action);
 
                 // Extract data for the chart
                 var trace1 = {
                     x: data.map(row => row.Date),
                     y: data.map(row => row.Palestinian),
+                    dk: hoverinfo.map(row => row.Dead),
+                    act: hoverinfo.map(row => row.Action),
                     mode: 'lines+markers',
                     type: 'scatter',
                     name: 'Palestinian Deaths',
                     line: { color: 'red' },  // Set line color for Series 1
                     hovertemplate:
                     "<b>On This Day</b><br><br>" +
-                    "%Date: %{x}<br>" +
-                    "Total Dead: %{y:,.0f}<br>" +
-                    // "%Dead Kids: %{dk:.0f}<br>" +
-                    // "%{act}" +
+                    "Date: %{x}<br>" +
+                    "Palestinian Deaths: %{y:,.0f}<br>" +
+                    "Dead Kids: %{dk:.0f}<br>" +
+                    "%{act}" +
                     "<extra></extra>"
                 };
 
@@ -130,7 +130,9 @@
                 var layout = {
                     title: 'Palestinian/Israeli Death Toll Post Oct. 7',
                     xaxis: { title: 'Date' },
-                    yaxis: { title: 'Deaths (Cumulative)' }
+                    yaxis: { title: 'Deaths (Cumulative)' },
+                    showlegend: true,
+                    legend: {"orientation": "h"}
                 };
 
                 // Create the Plotly chart
