@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Palestine</title>
+    <title>The Accountability Project</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🇵🇸</text></svg>">    
     <style>
         body {
@@ -50,6 +50,7 @@
         }
     </style>
     <!-- Plotly CDN for JavaScript libraries -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 <body>
@@ -68,42 +69,59 @@
     <main>
         <h2>Visualization of deaths in Palestine since October 7. </h2>
         <p>We want to know. What is a proportionate response?</p>
+        <p>Holding our leaders accountable for what they say and when they say it.</p>
             <!-- Container for the Plotly chart -->
     <div id="plotly-chart"></div>
 
     <script>
-            // Load deaths data from the CSV file
-            Plotly.d3.csv('data.csv', function(data) {
+        // Load deaths data from the CSV file
+        d3.csv('data.csv', function(data) {
+            // Load tooltip info from the CSV file
+            d3.csv('historical.csv', function(hoverinfo){
 
-            // Extract data for the chart
-            var trace1 = {
-                x: data.map(row => row.Date),
-                y: data.map(row => row.Palestinian),
-                mode: 'lines',
-                type: 'scatter',
-                name: 'Palestinian Deaths',
-                line: { color: 'red' }  // Set line color for Series 1
-            };
+                var day = [], dead = [], action = [];
+                for (var i = 0; i < hoverinfo.length; i++) {
+                    row = rows[i];
+                    day.push(row["Date"]);
+                    dead.push(row["Dead"]);
+                    action.push(row["Action"]);
+                }
 
-            var trace2 = {
-                x: data.map(row => row.Date),
-                y: data.map(row => row.Israeli),
-                mode: 'lines',
-                type: 'scatter',
-                name: 'Israeli Deaths',
-                line: { color: 'blue' }  // Set line color for Series 2
-            };
+        // Extract data for the chart
+        var trace1 = {
+            x: data.map(row => row.Date),
+            y: data.map(row => row.Palestinian),
+            mode: 'lines+markers',
+            type: 'scatter',
+            name: 'Palestinian Deaths',
+            line: { color: 'red' },  // Set line color for Series 1
+            hovertemplate:
+            "<b>On This Day</b><br><br>" +
+            "%{yaxis.title.text}: %{day}<br>" +
+            "%{xaxis.title.text}: %{dead:.0f}<br>" +
+            "%action" +
+            "<extra></extra>"
+        };
 
-            // Layout settings for the chart
-            var layout = {
-                title: 'Palestinian/Israeli Death Toll Post Oct. 7',
-                xaxis: { title: 'Date' },
-                yaxis: { title: 'Deaths (Cumulative)' }
-            };
+        var trace2 = {
+            x: data.map(row => row.Date),
+            y: data.map(row => row.Israeli),
+            mode: 'lines+markers',
+            type: 'scatter',
+            name: 'Israeli Deaths',
+            line: { color: 'blue' }  // Set line color for Series 2
+        };
 
-            // Create the Plotly chart
-            Plotly.newPlot('plotly-chart', [trace1, trace2], layout);
-        });
+        // Layout settings for the chart
+        var layout = {
+            title: 'Palestinian/Israeli Death Toll Post Oct. 7',
+            xaxis: { title: 'Date' },
+            yaxis: { title: 'Deaths (Cumulative)' }
+        };
+
+        // Create the Plotly chart
+        Plotly.newPlot('plotly-chart', [trace1, trace2], layout);
+    });
     </script>
 
     <p>Cumulative deaths day by day - need to find delta after. Methodology - last snapshot of https://www.aljazeera.com/news/longform/2023/10/9/israel-hamas-war-in-maps-and-charts-live-tracker on Wayback Machine
@@ -116,7 +134,7 @@
     </main>
 
     <footer>
-        &copy; 2023 Personal Site. All rights reserved. Hosted on GitHub Pages. Built with ChatGPT.
+        &copy; 2023 The Accountability Project. All rights reserved. Hosted on GitHub Pages. Built with ChatGPT.
     </footer>
 
 </body>
