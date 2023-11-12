@@ -39,6 +39,27 @@
             padding: 2em;
         }
 
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-family: Arial, sans-serif;
+        }
+
+        th, td {
+            border: 1px solid #fbf9f9;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #19408d;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
         footer {
             background-color: #0d47a1; /* Dark blue footer background color */
             color: #fff; /* White text color */
@@ -49,7 +70,8 @@
             width: 100%;
         }
     </style>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- D3.js CDN -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
 </head>
 <body>
 
@@ -66,41 +88,39 @@
 
     <main>
         <h2>Sources for Main Visualization</h2>
-    <!-- Container for the Plotly chart -->
-    <div id="plotly-chart"></div>
-    <script>
-        var values = [
-      ['Salaries', 'Office', 'Merchandise', 'Legal', '<b>TOTAL</b>'],
-      [1200000, 20000, 80000, 2000, 12120000],
-      [1300000, 20000, 70000, 2000, 130902000],
-      [1300000, 20000, 120000, 2000, 131222000],
-      [1400000, 20000, 90000, 2000, 14102000]]
+        <table id="sources-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Name</th>
+                    <th>Country</th>
+                    <th>Action</th>
+                    <th>Source</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
 
-var data = [{
-  type: 'table',
-  header: {
-    values: [["<b>EXPENSES</b>"], ["<b>Q1</b>"],
-				 ["<b>Q2</b>"], ["<b>Q3</b>"], ["<b>Q4</b>"]],
-    align: "center",
-    line: {width: 1, color: 'black'},
-    fill: {color: "grey"},
-    font: {family: "Arial", size: 12, color: "white"}
-  },
-
-  cells: {
-    values: values,
-    align: "center",
-    line: {color: "black", width: 1},
-    font: {family: "Arial", size: 11, color: ["black"]}
-  }
-}]
-
-Plotly.newPlot('myDiv', data);
-</script>
+        <script>
+            // Load CSV data and populate the table
+            d3.csv('sources.csv').then(function(data) {
+                var tableBody = d3.select('#sources-table tbody');
+    
+                data.forEach(function(row) {
+                    var tableRow = tableBody.append('tr');
+                    tableRow.append('td').text(row.Date);
+                    tableRow.append('td').text(row.Name);
+                    tableRow.append('td').text(row.Country);
+                    tableRow.append('td').text(row.Action);
+                    tableRow.append('td').text(row.Source);
+                    // Add more columns as needed
+                });
+            });
+        </script>    
     </main>
 
     <footer>
-        &copy; 2023 Personal Site. All rights reserved. Hosted on GitHub Pages. Built with ChatGPT.
+        &copy; 2023 The Accountability Project. All rights reserved. Hosted on GitHub Pages. Built with ChatGPT.
     </footer>
 
 </body>
