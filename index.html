@@ -77,15 +77,15 @@
         // Load deaths data from the CSV file
         d3.csv('data.csv', function(data) {
             // Load tooltip info from the CSV file
-            d3.csv('historical.csv', function(hoverinfo){
+            // d3.csv('historical.csv', function(hoverinfo){
 
-                var day = [], dead = [], action = [];
-                for (var i = 0; i < hoverinfo.length; i++) {
-                    row = rows[i];
-                    day.push(row["Date"]);
-                    dead.push(row["Dead"]);
-                    action.push(row["Action"]);
-                }
+            //     var day = [], dead = [], action = [];
+            //     for (var i = 0; i < hoverinfo.length; i++) {
+            //         row = rows[i];
+            //         day.push(row["Date"]);
+            //         dead.push(row["Dead"]);
+            //         action.push(row["Action"]);
+            //     }
 
         // Extract data for the chart
         var trace1 = {
@@ -94,14 +94,14 @@
             mode: 'lines+markers',
             type: 'scatter',
             name: 'Palestinian Deaths',
-            line: { color: 'red' },  // Set line color for Series 1
-            hovertemplate:
-            "<b>On This Day</b><br><br>" +
-            "%Date: %{day}<br>" +
-            "Total Dead: %{x:,.0f}<br>" +
-            "%Dead Kids: %{dead:.0f}<br>" +
-            "%{action}" +
-            "<extra></extra>"
+            line: { color: 'red' }  // Set line color for Series 1
+            // hovertemplate:
+            // "<b>On This Day</b><br><br>" +
+            // "%Date: %{day}<br>" +
+            // "Total Dead: %{x:,.0f}<br>" +
+            // "%Dead Kids: %{dead:.0f}<br>" +
+            // "%{action}" +
+            // "<extra></extra>"
         };
 
         var trace2 = {
@@ -123,7 +123,7 @@
         // Create the Plotly chart
         Plotly.newPlot('plotly-chart', [trace1, trace2], layout);
          });
-    });
+
     </script>
 
     <p>This chart was created by recording the daily death toll from <a href="https://www.aljazeera.com/news/longform/2023/10/9/israel-hamas-war-in-maps-and-charts-live-tracker">Al Jazeera</a> using the Wayback Machine to scrub the website between October 9 and present day.</p>
@@ -133,9 +133,11 @@
     <p>For a complete list of all sources of significant events, please visit the <a href="https://bazzzzil.github.io/sources.html">Sources</a> tab.</p>
     </main>
 
+    <div>
     <footer>
         &copy; 2023 The Accountability Project. All rights reserved. Hosted on GitHub Pages. Built with ChatGPT.
     </footer>
+    </div>
 
 </body>
 </html>
