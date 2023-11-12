@@ -97,9 +97,10 @@
             line: { color: 'red' },  // Set line color for Series 1
             hovertemplate:
             "<b>On This Day</b><br><br>" +
-            "%{yaxis.title.text}: %{day}<br>" +
-            "%{xaxis.title.text}: %{dead:.0f}<br>" +
-            "%action" +
+            "%Date: %{day}<br>" +
+            "Total Dead: %{x:,.0f}<br>" +
+            "%Dead Kids: %{dead:.0f}<br>" +
+            "%{action}" +
             "<extra></extra>"
         };
 
