@@ -80,36 +80,55 @@
     <script>
         // Load deaths data from the CSV file
         Plotly.d3.csv('data.csv', function(data) {
+            // Load tooltip info from the CSV file
+            Plotly.d3.csv('historical.csv', function(hoverinfo){
 
-        // Extract data for the chart
-        var trace1 = {
-            x: data.map(row => row.Date),
-            y: data.map(row => row.Palestinian),
-            mode: 'lines+markers',
-            type: 'scatter',
-            name: 'Palestinian Deaths',
-            line: { color: 'red' }  // Set line color for Series 1
-        };
+                var day = [], dead = [], action = [];
+                for (var i = 0; i < hoverinfo.length; i++) {
+                    row = rows[i];
+                    day.push(row["Date"]);
+                    dead.push(row["Dead"]);
+                    action.push(row["Action"]);
+                }
 
-        var trace2 = {
-            x: data.map(row => row.Date),
-            y: data.map(row => row.Israeli),
-            mode: 'lines+markers',
-            type: 'scatter',
-            name: 'Israeli Deaths',
-            line: { color: 'blue' }  // Set line color for Series 2
-        };
+                // Extract data for the chart
+                var trace1 = {
+                    x: data.map(row => row.Date),
+                    y: data.map(row => row.Palestinian),
+                    mode: 'lines+markers',
+                    type: 'scatter',
+                    name: 'Palestinian Deaths',
+                    line: { color: 'red' }  // Set line color for Series 1
+                    // hovertemplate:
+                    // "<b>On This Day</b><br><br>" +
+                    // "%Date: %{day}<br>" +
+                    // "Total Dead: %{x:,.0f}<br>" +
+                    // "%Dead Kids: %{dead:.0f}<br>" +
+                    // "%{action}" +
+                    // "<extra></extra>"
+                };
 
-        // Layout settings for the chart
-        var layout = {
-            title: 'Palestinian/Israeli Death Toll Post Oct. 7',
-            xaxis: { title: 'Date' },
-            yaxis: { title: 'Deaths (Cumulative)' }
-        };
+                var trace2 = {
+                    x: data.map(row => row.Date),
+                    y: data.map(row => row.Israeli),
+                    mode: 'lines+markers',
+                    type: 'scatter',
+                    name: 'Israeli Deaths',
+                    line: { color: 'blue' }  // Set line color for Series 2
+                };
 
-        // Create the Plotly chart
-        Plotly.newPlot('plotly-chart', [trace1, trace2], layout);
-         });
+                // Layout settings for the chart
+                var layout = {
+                    title: 'Palestinian/Israeli Death Toll Post Oct. 7',
+                    xaxis: { title: 'Date' },
+                    yaxis: { title: 'Deaths (Cumulative)' }
+                };
+
+                // Create the Plotly chart
+                Plotly.newPlot('plotly-chart', [trace1, trace2], layout);
+
+            });
+        });
 
     </script>
 
