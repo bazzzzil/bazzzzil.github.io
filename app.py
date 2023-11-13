@@ -1,6 +1,5 @@
 from flask import Flask, render_template
 import pandas as pd
-import plotly.express as px
 import plotly.graph_objects as go
 
 app = Flask(__name__)
@@ -21,6 +20,7 @@ def index():
         y = plot_data["Palestinian"],
         name = "Palestinian",
         mode = 'lines+markers',
+        line=dict(color='red'),
         hovertemplate =
         'Date: %{x}<br>Palestinian Deaths: %{y}<br>Dead Kids: %{customdata[0]}<br>Action: %{customdata[1]}<extra></extra>',
         customdata=tooltip_data[['Dead', 'Action']],
@@ -31,6 +31,7 @@ def index():
         y = plot_data["Israeli"],
         name = "Israeli",
         mode = 'lines+markers',
+        line=dict(color='blue'),
         hovertemplate = 'Israeli Deaths: %{y}<extra></extra>',
         showlegend = True))
 
