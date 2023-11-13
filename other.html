@@ -1,18 +1,57 @@
-// Load tooltip info from the CSV file
-// d3.csv('historical.csv', function(hoverinfo){
+<script>
+    // Load deaths data from the CSV file
+    Plotly.d3.csv('data.csv', function(data) {
 
-//     var day = [], dead = [], action = [];
-//     for (var i = 0; i < hoverinfo.length; i++) {
-//         row = rows[i];
-//         day.push(row["Date"]);
-//         dead.push(row["Dead"]);
-//         action.push(row["Action"]);
-//     }
+        // Load tooltip info from the CSV file
+        Plotly.d3.csv('historical.csv', function(hover_info){
 
-// hovertemplate:
-// "<b>On This Day</b><br><br>" +
-// "%Date: %{day}<br>" +
-// "Total Dead: %{x:,.0f}<br>" +
-// "%Dead Kids: %{dead:.0f}<br>" +
-// "%{action}" +
-// "<extra></extra>"
+            // Extract data for the chart
+            var trace1 = {
+                x: data.map(row => row.Date),
+                y: data.map(row => row.Number),
+                cd1: hover_info.map(row => row.customData1),
+                cd2: hover_info.map(row => row.customData2),
+                mode: 'lines+markers',
+                type: 'scatter',
+                name: 'Name',
+                line: { color: 'red' },  // Set line color for Series 1
+                hovertemplate:
+                "<b>On This Day</b><br><br>" +
+                "Date: %{x}<br>" +
+                "Number: %{y:,.0f}<br>" +
+                "Custom Data 1: %{cd1:.0f}<br>" +
+                "%{cd2}" +
+                "<extra></extra>"
+            };
+
+            var trace2 = {
+                x: data.map(row => row.Date),
+                y: data.map(row => row.Number),
+                mode: 'lines+markers',
+                type: 'scatter',
+                name: 'Name',
+                line: { color: 'blue' },  // Set line color for Series 2
+                hovertemplate:
+                "Number: %{y:,.0f}<br>"
+            };
+
+            // Layout settings for the chart
+            var layout = {
+                title: 'Title',
+                xaxis: { title: 'Date' },
+                yaxis: { title: 'Number (Cumulative)' },
+                showlegend: true,
+                legend: {
+                    x: 1,
+                    xanchor: 'right',
+                    y: 1
+                }
+            };
+
+            // Create the Plotly chart
+            Plotly.newPlot('plotly-chart', [trace1, trace2], layout);
+
+        });
+    });
+
+</script>
