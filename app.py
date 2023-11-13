@@ -8,16 +8,13 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     # Read data from the CSV file
+    # For debugging
     plot_data = pd.read_csv('static/data.csv')
     tooltip_data = pd.read_csv('static/historical.csv')
 
-    # Create a line plot with two series using Plotly Express
-    # fig = px.line(plot_data, x='Date', y=['Palestinian', 'Israeli'], title='Palestinian/Israeli Death Toll Post Oct. 7', markers=True)
-
-    # fig.update_traces(
-    #     hovertemplate='<b>%{text}</b><br>Date: %{x}<br>Deaths: %{y}<br>Dead Kids: %{customdata[0]}<br>Action: %{customdata[1]}',
-    #     customdata=tooltip_data[['Dead', 'Action']]
-    # )
+    # For publishing
+    # plot_data = pd.read_csv('/home/palaccarchive/pal-acc-archive/static/data.csv')
+    # tooltip_data = pd.read_csv('/home/palaccarchive/pal-acc-archive/static/historical.csv')
 
     fig = go.Figure(go.Scatter(
         x = plot_data["Date"],

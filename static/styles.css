@@ -8,6 +8,7 @@ body {
     color: #fff; /* White text color */
     margin-right: auto;
     margin-left: auto;   
+    margin-bottom: 20px;
 }
 
 header {
@@ -19,6 +20,7 @@ header {
     margin-left: auto;   
     max-width: 100%;  
     min-width: 500px;
+    height: 75px;
     left: 0;
 }
 
@@ -33,11 +35,29 @@ nav {
     
 }
 
+a {
+    color: #ffff14;
+    text-decoration: none;
+  }
+
+  /* Link color after click */
+a:visited {
+    color: #e0aaf9;
+  }
+
 nav a {
     color: #fff; /* White text color for navigation links */
     text-decoration: none;
-    padding: 1em;
-    margin: 0 1em;
+    padding: 2em;
+    margin: 0em;
+    width: 100%
+}
+
+nav a:visited {
+    color: #fff; /* White text color for navigation links */
+    text-decoration: none;
+    padding: 2em;
+    margin: 0em;
     width: 100%
 }
 
