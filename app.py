@@ -39,8 +39,8 @@ def index():
         autosize=True,
         title = "Cumulative Deaths Post Oct 7",
         margin=dict(l=0, r=0, t=75, b=0),
-        xaxis={'title': 'x-axis','fixedrange':True},
-        yaxis={'title': 'y-axis','fixedrange':True},
+        xaxis={'fixedrange':True},
+        yaxis={'fixedrange':True},
         legend=dict(
             orientation="h",  # Set the legend orientation to horizontal
             x=0,              # Adjust the x position
