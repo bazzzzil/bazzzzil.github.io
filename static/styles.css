@@ -75,8 +75,13 @@ nav a:hover {
     color: #6991c2aa;
 }
 
+main {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
 footer {
-    background-color: #0d47a1; /* Dark blue footer background color */
+    background-color: #004080; /* Dark blue footer background color */
     color: #fff; /* White text color */
     text-align: center;
     padding: 1em;
@@ -98,11 +103,11 @@ table {
 th, td {
     border: 1px solid #fbf9f9;
     text-align: left;
-    padding: 8px;
+    padding: 2px;
 }
 
 th {
-    background-color: #19408d;
+    background-color: #004080;
 }
 
 tr:hover {

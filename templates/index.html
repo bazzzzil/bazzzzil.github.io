@@ -2,8 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /> -->
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0">
     <title>The Palestine Accountability Archive</title>
 
@@ -41,20 +39,30 @@
     </nav>
 
     <main>
-        <h2>We want to know: what is a proportionate response?</h2>
-        <p>Visualization of deaths in Palestine since October 7.</p>
+        <h1>What is a proportionate response?</h1>
+        <h2>We want to know.</h2>
         <p>Holding our leaders accountable for what they say and when they say it.</p>
+        <p>The graph below is a visualization of deaths in Palestine since October 7. Click (on mobile) or hover (on desktop) on any point to see the number of deaths incurred by Palestinians and Israelis,
+            as well as a significant action taken by a politician on that day and the number of children murdered by Israel. 
+            For more information on this project, please see the <a href="{{ url_for('about') }}"> About </a> page.
+        </p>
+        <p>Ceasefire Now!</p>
             <!-- Container for the Plotly chart -->
             <div id="plotly-chart">
                 {{ plot_html|safe }}
             </div>
 
     <p>This chart was created by recording the daily death toll from <a href="https://www.aljazeera.com/news/longform/2023/10/9/israel-hamas-war-in-maps-and-charts-live-tracker">Al Jazeera</a> using the Wayback Machine to scrub the website between October 9 and present day.</p>
-   <p>Notes: The Palestinian death count is widely thought to be underestimated due to to bodies trapped under the rubble as well as underreporting of deaths due to disease, thirst and/or starvation. 
+  
+    <p>Notes: The Palestinian death count is widely thought to be underestimated due to to bodies trapped under the rubble as well as underreporting of deaths due to disease, thirst and/or starvation. 
     Total Israeli death count includes military and police. As of November 11, <a href="https://www.npr.org/2023/11/11/1212458974/israel-revises-death-toll-hamas-attacks-oct-7">Israeli sources</a> 
     have confirmed the total deaths to be just under 1,200 (1,152 according to Haaretz), compared with the initial widely circulated number of 1,400. 
     A complete list is available from <a href="https://www.haaretz.com/israel-news/2023-10-19/ty-article-magazine/israels-dead-the-names-of-those-killed-in-hamas-massacres-and-the-israel-hamas-war/0000018b-325c-d450-a3af-7b5cf0210000">Haaretz</a>.
     Deaths in the West Bank, also reported here, are due to state-sponsored settler violence and IDF attacks on West Bank protesters.</p>
+
+    <p>By no means do I want us to numerize the lives and stories of Palestinians. Behind each number is a person, a story, a life stolen too soon. Let us do well to remember that so we can mourn the dead and fight like hell for the living.</p>
+
+
     <p>For a complete list of all sources of significant events, please visit the <a href="{{ url_for('sources') }}">Sources</a> tab.</p>
     </main>
 

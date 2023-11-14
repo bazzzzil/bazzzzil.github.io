@@ -22,7 +22,7 @@ def index():
         mode = 'lines+markers',
         line=dict(color='red'),
         hovertemplate =
-        'Date: %{x}<br>Palestinian Deaths: %{y}<br>Dead Kids: %{customdata[0]}<br>Action: %{customdata[1]}<extra></extra>',
+        'Date: %{x}<br>Palestinian Deaths: %{y}<br>Children Killed: %{customdata[0]}<br>Action: %{customdata[1]}<extra></extra>',
         customdata=tooltip_data[['Dead', 'Action']],
         showlegend = True))
 
@@ -50,7 +50,7 @@ def index():
 
     # Convert the plot to HTML
     plot_html = fig.to_html(full_html=False)
-    
+
     return render_template('index.html', plot_html=plot_html)
 
 @app.route('/about')

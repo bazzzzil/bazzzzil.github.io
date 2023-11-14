@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0">
     <title>The Palestine Accountability Archive</title>
 
     <!-- Open Graph meta tags -->
@@ -63,7 +63,13 @@
                     tableRow.append('td').text(row.Name);
                     tableRow.append('td').text(row.Country);
                     tableRow.append('td').text(row.Action);
-                    tableRow.append('td').text(row.Source);
+                    // tableRow.append('td').text(row.Source);
+                    // Make the last column a hyperlink
+                    var sourceColumn = tableRow.append('td');
+                    sourceColumn.append('a')
+                        .attr('href', row.Source)
+                        .attr('target', '_blank') // Optional: Open the link in a new tab
+                        .text(row.Source);
                     // Add more columns as needed
                 });
             });
