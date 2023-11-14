@@ -1,38 +1,34 @@
 /* styles.css */
 
+/* Common styles for all screen sizes */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #1a1a1a; /* Dark background color */
-    color: #fff; /* White text color */
-    margin-right: auto;
-    margin-left: auto;   
-    margin-bottom: 20px;
+    font-family: 'Arial', sans-serif;
+    background-color: #222; /* Dark background color */
+    color: #fff; /* Text color */
+    margin: 0; /* Remove default body margin */
+    padding: 0; /* Remove default body padding */
+    margin-bottom: 75px;
 }
 
+.container {
+    max-width: 1200px; /* Set maximum width for content */
+    margin: 0 auto; /* Center the content */
+    padding: 20px;
+}
+
+/* Header styles */
 header {
-    background-color: #0d47a1; /* Dark blue header background color */
-    color: #fff; /* White text color */
-    text-align: center;
-    padding: 1em;
-    margin-right: auto;
-    margin-left: auto;   
-    max-width: 100%;  
-    min-width: 500px;
-    height: 75px;
-    left: 0;
+    background-color: #004080; /* Dark blue header background color */
+    padding: 10px;
 }
 
+h1, h2, h3 {
+    color: #fff; /* Header text color */
+}
+
+/* Navigation styles */
 nav {
-    background-color: #0a356b; /* Darker blue navigation bar background color */
-    color: #fff; /* White text color */
-    padding: 1em;
-    margin-right: auto;    
-    margin-left: auto;    
-    max-width: 100%;    
-    min-width: 500px;
-    
+    background-color: #002040; /* Darker blue navigation background color */
 }
 
 a {
@@ -46,11 +42,25 @@ a:visited {
   }
 
 nav a {
-    color: #fff; /* White text color for navigation links */
+    color: #fff; /* Navigation link color */
     text-decoration: none;
-    padding: 2em;
-    margin: 0em;
-    width: 100%
+    padding: 10px;
+    display: inline-block;
+}
+
+/* Responsive styles for screens up to 767 pixels */
+@media only screen and (max-width: 767px) {
+    body {
+        font-size: 14px; /* Decrease font size for mobile */
+    }
+
+    .container {
+        padding: 10px; /* Adjust container padding for mobile */
+    }
+
+    nav {
+        text-align: center; /* Center navigation links on mobile */
+    }
 }
 
 nav a:visited {
@@ -63,15 +73,6 @@ nav a:visited {
 
 nav a:hover {
     color: #6991c2aa;
-}
-
-main {
-    padding: 2em;
-    margin-right: auto;    
-    margin-left: auto;    
-    max-width: 100%;    
-    min-width: 470px;
-    overflow: auto;
 }
 
 footer {

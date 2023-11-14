@@ -36,14 +36,21 @@ def index():
         showlegend = True))
 
     fig.update_layout(hovermode="x",
-        title = "Palestinian/Israeli Death Toll Post Oct. 7",
-        xaxis_title="Date",
-        yaxis_title="Deaths (Cumulative)")
+        autosize=True,
+        title = "Cumulative Deaths Post Oct 7",
+        margin=dict(l=0, r=0, t=75, b=0),
+        # xaxis_title="Date",
+        # yaxis_title="Deaths (Cumulative)",
+        legend=dict(
+            orientation="h",  # Set the legend orientation to horizontal
+            x=0,              # Adjust the x position
+            y=1.1             # Adjust the y position
+            )
+        )
 
     # Convert the plot to HTML
     plot_html = fig.to_html(full_html=False)
-
-
+    
     return render_template('index.html', plot_html=plot_html)
 
 @app.route('/about')
