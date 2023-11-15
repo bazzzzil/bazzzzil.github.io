@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0">
-    <title>The Palestine Accountability Archive</title>
+    <title>Context</title>
 
     <!-- Open Graph meta tags -->
     <meta property="og:title" content="The Palestine Accountability Archive">
@@ -20,12 +20,15 @@
 
     <!-- Palestine flag as webpage icon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🇵🇸</text></svg>">    
+    
+    <!-- Plotly CDN for JavaScript libraries -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
 </head>
 <body>
 
     <header>
-        <h1>Contact</h1>
+        <h1>Context</h1>
     </header>
 
     <nav>
@@ -37,12 +40,29 @@
     </nav>
 
     <main>
-        <h2>For inquiries, comments, questions, feedback, concerns, please <a href="mailto:palaccarchive@gmail.com">contact me</a>.</h2>
+        <h1>Did this start on October 7th, 2023?</h1>
+        <h2>No, it didn't.</h2>
+
+            <!-- Container for the Plotly chart -->
+            <div id="plotly-chart">
+                {{ context_plot|safe }}
+            </div>
+
+    <p>The chart above is a summary of all deaths between Israel and Palestine from the year 2000 (the second Intifada) until October 5th, 2023. 
+        This data was sourced from <a href"https://statistics.btselem.org/en/all-fatalities/by-date-of-incident?section=overall&tab=overview">B'Tselem</a>, an Israeli human rights organization.
+    </p>
+  
+    <p>Data prior to 2000 is difficult to source, but various studies indicate the following: WIP</p>
+
+
+    <p>For a complete list of all sources of significant events, please visit the <a href="{{ url_for('sources') }}">Sources</a> tab.</p>
     </main>
 
+    <div>
     <footer>
-        The Palestine Accountability Archive.<br>All rights reserved. Built with ChatGPT.
+    The Palestine Accountability Archive.<br>All rights reserved. Built with ChatGPT.
     </footer>
+    </div>
 
 </body>
 </html>

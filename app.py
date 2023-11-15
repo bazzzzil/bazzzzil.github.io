@@ -8,12 +8,12 @@ app = Flask(__name__)
 def index():
     # Read data from the CSV file
     # For debugging
-    plot_data = pd.read_csv('static/data.csv')
-    tooltip_data = pd.read_csv('static/historical.csv')
+    # plot_data = pd.read_csv('static/data.csv')
+    # tooltip_data = pd.read_csv('static/historical.csv')
 
     # For publishing
-    # plot_data = pd.read_csv('/home/palaccarchive/pal-acc-archive/static/data.csv')
-    # tooltip_data = pd.read_csv('/home/palaccarchive/pal-acc-archive/static/historical.csv')
+    plot_data = pd.read_csv('/home/palaccarchive/pal-acc-archive/static/data.csv')
+    tooltip_data = pd.read_csv('/home/palaccarchive/pal-acc-archive/static/historical.csv')
 
     fig = go.Figure(go.Scatter(
         x = plot_data["Date"],
@@ -56,6 +56,64 @@ def index():
 @app.route('/about')
 def about():
     return render_template('about.html')
+
+@app.route('/context')
+def context():
+    # Read data from the CSV file
+    # For debugging
+    # isr_data = pd.read_csv('static/isr-deaths-since-2000.csv')
+    # pal_data = pd.read_csv('static/pal-deaths-since-2000.csv')
+
+    # For publishing
+    isr_data = pd.read_csv('/home/palaccarchive/pal-acc-archive/static/isr-deaths-since-2000.csv')
+    pal_data = pd.read_csv('/home/palaccarchive/pal-acc-archive/static/pal-deaths-since-2000.csv')
+
+    isr_data['Date of death'] = pd.to_datetime(isr_data['Date of death'])
+    pal_data['Date of death'] = pd.to_datetime(pal_data['Date of death'])
+
+    isr_data['year'] = isr_data['Date of death'].dt.year
+    isr_data_yoy = isr_data['year'].value_counts().sort_index()
+    pal_data['year'] = pal_data['Date of death'].dt.year
+    pal_data_yoy = pal_data['year'].value_counts().sort_index()
+
+    trace1 = go.Bar(
+        x=pal_data_yoy.values,
+        y=pal_data_yoy.index,
+        marker_color='red',
+        textposition='auto',
+        orientation='h',
+        name=f'Palestinian Deaths',
+        hovertemplate = 'Year: %{y}<br>Deaths: %{x}'
+        )
+
+    trace2 = go.Bar(
+        x=isr_data_yoy.values,
+        y=isr_data_yoy.index,
+        marker_color='blue',
+        textposition='auto',
+        orientation='h',
+        name=f'Israeli Deaths',
+        hovertemplate = 'Year: %{y}<br>Deaths: %{x}'
+        )
+    
+    # Plotting with Plotly
+    fig = go.Figure([trace1, trace2])
+
+    fig.update_layout(
+        title='Comparison of Deaths per Year',
+        autosize=True,
+        margin=dict(l=0, r=0, t=60, b=70),
+        xaxis={'title': "Deaths", 'fixedrange':True},
+        yaxis={'title': "Year", 'fixedrange':True, 'tickmode':'array'},
+        barmode='relative',
+        bargap=0.1,  # Bars point away from each other
+        legend=dict(orientation='h', x=-0.2, y=-0.15),
+    )
+
+    # Convert the plot to HTML
+    context_plot = fig.to_html(full_html=False)
+
+    return render_template('context.html', context_plot=context_plot)
 
 @app.route('/sources')
 def sources():
