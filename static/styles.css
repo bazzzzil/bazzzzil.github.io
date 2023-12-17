@@ -8,6 +8,7 @@ body {
     margin: 0; /* Remove default body margin */
     padding: 0; /* Remove default body padding */
     margin-bottom: 75px;
+    /* margin-top: 10em; */
 }
 
 .container {
@@ -18,7 +19,7 @@ body {
 
 /* Header styles */
 header {
-    background-color: #004080; /* Dark blue header background color */
+    background-color: #014711; /* Dark green header background color */
     padding: 10px;
 }
 
@@ -28,7 +29,8 @@ h1, h2, h3 {
 
 /* Navigation styles */
 nav {
-    background-color: #002040; /* Darker blue navigation background color */
+    background-color: #400000; /* Darker blue navigation background color */
+
 }
 
 a {
@@ -81,7 +83,7 @@ main {
 }
 
 footer {
-    background-color: #004080; /* Dark blue footer background color */
+    background-color: #014711; /* Dark blue footer background color */
     color: #fff; /* White text color */
     text-align: center;
     padding: 1em;
@@ -107,7 +109,7 @@ th, td {
 }
 
 th {
-    background-color: #004080;
+    background-color: #400000;
 }
 
 tr:hover {

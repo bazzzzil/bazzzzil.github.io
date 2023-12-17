@@ -1,6 +1,8 @@
 from flask import Flask, render_template
 import pandas as pd
+import numpy as np
 import plotly.graph_objects as go
+import plotly.subplots as sp
 
 app = Flask(__name__)
 
@@ -8,12 +10,12 @@ app = Flask(__name__)
 def index():
     # Read data from the CSV file
     # For debugging
-    # plot_data = pd.read_csv('static/data.csv')
-    # tooltip_data = pd.read_csv('static/historical.csv')
+    plot_data = pd.read_csv('static/data.csv')
+    tooltip_data = pd.read_csv('static/historical.csv')
 
     # For publishing
-    plot_data = pd.read_csv('/home/palaccarchive/pal-acc-archive/static/data.csv')
-    tooltip_data = pd.read_csv('/home/palaccarchive/pal-acc-archive/static/historical.csv')
+    # plot_data = pd.read_csv('/home/palaccarchive/pal-acc-archive/static/data.csv')
+    # tooltip_data = pd.read_csv('/home/palaccarchive/pal-acc-archive/static/historical.csv')
 
     fig = go.Figure(go.Scatter(
         x = plot_data["Date"],
@@ -23,7 +25,7 @@ def index():
         line=dict(color='red'),
         hovertemplate =
         'Date: %{x}<br>Palestinian Deaths: %{y}<br>Children Killed: %{customdata[0]}<br>Action: %{customdata[1]}<extra></extra>',
-        customdata=tooltip_data[['Dead', 'Action']],
+        customdata=tooltip_data[['DeadKids', 'Action']],
         showlegend = True))
 
     fig.add_trace(go.Scatter(
@@ -35,7 +37,7 @@ def index():
         hovertemplate = 'Israeli Deaths: %{y}<extra></extra>',
         showlegend = True))
 
-    fig.update_layout(hovermode="x",
+    fig.update_layout(hovermode="x unified",
         autosize=True,
         title = "Cumulative Deaths Post Oct 7",
         margin=dict(l=0, r=0, t=75, b=0),
@@ -59,14 +61,14 @@ def about():
 
 @app.route('/context')
 def context():
-    # Read data from the CSV file
-    # For debugging
-    # isr_data = pd.read_csv('static/isr-deaths-since-2000.csv')
-    # pal_data = pd.read_csv('static/pal-deaths-since-2000.csv')
+    ### Read data from the CSV file
+    ## For debugging
+    isr_data = pd.read_csv('static/isr-deaths-since-2000.csv')
+    pal_data = pd.read_csv('static/pal-deaths-since-2000.csv')
 
-    # For publishing
-    isr_data = pd.read_csv('/home/palaccarchive/pal-acc-archive/static/isr-deaths-since-2000.csv')
-    pal_data = pd.read_csv('/home/palaccarchive/pal-acc-archive/static/pal-deaths-since-2000.csv')
+    ## For publishing
+    # isr_data = pd.read_csv('/home/palaccarchive/pal-acc-archive/static/isr-deaths-since-2000.csv')
+    # pal_data = pd.read_csv('/home/palaccarchive/pal-acc-archive/static/pal-deaths-since-2000.csv')
 
     isr_data['Date of death'] = pd.to_datetime(isr_data['Date of death'])
     pal_data['Date of death'] = pd.to_datetime(pal_data['Date of death'])
@@ -77,13 +79,14 @@ def context():
     pal_data_yoy = pal_data['year'].value_counts().sort_index()
 
     trace1 = go.Bar(
-        x=pal_data_yoy.values,
+        x=np.dot(pal_data_yoy.values,-1),
         y=pal_data_yoy.index,
+        meta=np.abs(np.dot(pal_data_yoy.values,-1)),
         marker_color='red',
         textposition='auto',
         orientation='h',
         name=f'Palestinian Deaths',
-        hovertemplate = 'Year: %{y}<br>Deaths: %{x}'
+        hovertemplate = 'Deaths: %{meta}<extra></extra>'
         )
 
     trace2 = go.Bar(
@@ -93,23 +96,25 @@ def context():
         textposition='auto',
         orientation='h',
         name=f'Israeli Deaths',
-        hovertemplate = 'Year: %{y}<br>Deaths: %{x}'
+        hovertemplate = 'Deaths: %{x}<extra></extra>'
         )
     
     # Plotting with Plotly
     fig = go.Figure([trace1, trace2])
 
-    fig.update_layout(
+    fig.update_layout( hovermode='y unified',
         title='Comparison of Deaths per Year',
         autosize=True,
         margin=dict(l=0, r=0, t=60, b=70),
-        xaxis={'title': "Deaths", 'fixedrange':True},
+        xaxis={'title': "", 'fixedrange':True, 'showticklabels':False},
         yaxis={'title': "Year", 'fixedrange':True, 'tickmode':'array'},
-        barmode='relative',
+        barmode='overlay',
         bargap=0.1,  # Bars point away from each other
-        legend=dict(orientation='h', x=-0.2, y=-0.15),
+        legend=dict(orientation='h', x=-0.2, y=-0),
     )
 
+    fig.update_yaxes(autorange="reversed")
+    
     # Convert the plot to HTML
     context_plot = fig.to_html(full_html=False)
 
